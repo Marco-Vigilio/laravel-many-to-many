@@ -7,7 +7,14 @@
             <div class="card">
                 <h5 class="card-header"> ID: {{ $project->id }} ---- {{ $project->slug }}</h5>
                 <!---->
-                @dump($project->technology->technology_id)
+                
+                Technologies:
+                @if(count($project->technologies) > 0)
+                    @foreach ($project->technologies as $technology)
+                        {{ $technology->type_technology}} --
+                    @endforeach
+                @endif
+                
                 
 
 
