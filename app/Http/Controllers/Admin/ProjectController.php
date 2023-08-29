@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Admin\Project;
+use App\Models\Admin\Technology;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -26,7 +27,8 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view("admins.project.create");
+        $technologies = Technology::all();
+        return view("admins.project.create", compact("technologies"));
     }
 
     /**
