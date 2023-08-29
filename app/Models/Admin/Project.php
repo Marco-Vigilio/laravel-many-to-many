@@ -17,6 +17,6 @@ class Project extends Model
     ];
 
     public function technologies(){
-        return $this->belongsToMany("App\Models\Admin\Technologies");
+        return $this->belongsToMany("App\Models\Admin\Technology");
     }
 }
