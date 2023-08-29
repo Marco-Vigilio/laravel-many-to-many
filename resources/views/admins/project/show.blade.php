@@ -7,9 +7,8 @@
             <div class="card">
                 <h5 class="card-header"> ID: {{ $project->id }} ---- {{ $project->slug }}</h5>
                 <!---->
-                @if($projects->technologies)
-                    @dump($projects->technologies)
-                @endif
+                @dump($project->technology->technology_id)
+                
 
 
                 @if(str_starts_with($project->image, 'http'))
