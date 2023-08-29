@@ -15,4 +15,8 @@ class Project extends Model
         'image',
         'slug'
     ];
+
+    public function technologies(){
+        return $this->belongsToMany("App\Models\Admin\Technologies");
+    }
 }
