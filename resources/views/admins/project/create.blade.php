@@ -40,7 +40,7 @@
                     Technologies: 
                 </label>
                 @foreach ($technologies as $technology)
-                <input class="form-check-input" type="checkbox" name="technology_id[]" id="technology_id">
+                <input class="form-check-input" type="checkbox" name="technology_id[]" id="technology_id" value="{{$technology->id}}">
                 <label for="technology_id" class="me-3">
                     {{ $technology->type_technology}}
                 </label>
