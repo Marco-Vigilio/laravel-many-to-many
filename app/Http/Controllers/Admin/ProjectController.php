@@ -77,7 +77,8 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        return view('admins.project.edit', compact('project'));
+        $technologies = Technology::all();
+        return view('admins.project.edit', compact('project','technologies'));
     }
 
     /**
@@ -90,6 +91,7 @@ class ProjectController extends Controller
             'title'=> ['required', 'min:10', 'max:255', Rule::unique('projects')->ignore($project->id)],
             'image'=> ['image'],
             'content'=> ['required', 'min:10'],
+            'technologies'=> ['exists_technologies,id'],
         ]);
 
         if ($request->hasFile('image')){
@@ -101,6 +103,11 @@ class ProjectController extends Controller
         $data['slug'] = Str::of($data['title'])->slug('-');
 
         $project->update($data);
+
+        if ($request->has('technologies')){
+            $project->technologies()->sync($request->technologies);
+        }
+
         return redirect()->route('admin.projects.show', compact('project'));
 
         //aggiornamento seguito a validazione corretta
@@ -113,6 +120,7 @@ class ProjectController extends Controller
     public function destroy(Project $project)
     {
         Storage::delete($project->image);
+        $project->technogies()->detach();
         $project->delete();
         return redirect()->route('admin.projects.index');
     }

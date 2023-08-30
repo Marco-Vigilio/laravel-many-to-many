@@ -29,6 +29,19 @@
             @error('content')
                 <div class="alert alert-danger">{{ $message }}</div>
             @enderror
+
+            <div class="mb-3">
+                <label for="technology_id" class="form-label">
+                    Technologies: 
+                </label>
+                @foreach ($technologies as $technology)
+                <input class="form-check-input" type="checkbox" name="technology_id[]" id="technology_id" value="{{$technology->id}}" @if ($project->technologies->contains($technology->id)) checked @endif>
+                <label for="technology_id" class="me-3">
+                    {{ $technology->type_technology}}
+                </label>
+                @endforeach
+            </div>
+
             <div class="mb-3">
                 <label for="content" class="form-label">
                     Content
