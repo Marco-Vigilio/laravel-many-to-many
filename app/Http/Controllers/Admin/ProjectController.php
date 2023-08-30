@@ -37,12 +37,15 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
         //dd($request->all());
+        //$technologies = Technology::all()->pluck('id')->toArray();
 
         $data = $request->validate([
             'title'=> ['required', 'unique:projects', 'min:10', 'max:255'],
             'image'=> ['required', 'image'],
             'content'=> ['required', 'min:10'],
+            'technologies'=> ['exists_technologies,id'],
         ]);
+
 
         if ($request->hasFile('image')){
             $img_path = Storage::put('uploads/image', $request['image']);//salvo l'immagine preso in uploads e la metto nella storage
@@ -51,6 +54,11 @@ class ProjectController extends Controller
         
         $data['slug'] = Str::of($data['title'])->slug('-');
         $newProject = Project::create($data);
+
+
+        if ($request->has('technologies')){
+            $newTechnology->technologies()->sync($request->technologies);
+        }
 
         return redirect()->route('admin.projects.index');
         
